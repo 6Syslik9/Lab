@@ -1,0 +1,72 @@
+npx create-react-app react-calculator
+cd react-calculator
+
+npm install react-bootstrap bootstrap
+
+import React, { useState } from 'react';
+import { Form, FormControl, Button, DropdownButton, Dropdown } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
+function App() {
+  const [operand1, setOperand1] = useState('');
+  const [operand2, setOperand2] = useState('');
+  const [operation, setOperation] = useState('+');
+  const [result, setResult] = useState('');
+
+  const calculate = () => {
+    const num1 = parseFloat(operand1);
+    const num2 = parseFloat(operand2);
+
+    switch (operation) {
+      case '+':
+        setResult(num1 + num2);
+        break;
+      case '-':
+        setResult(num1 - num2);
+        break;
+      case '*':
+        setResult(num1 * num2);
+        break;
+      case '/':
+        setResult(num1 / num2);
+        break;
+      default:
+        setResult('Invalid operation');
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>React Calculator</h1>
+      <Form inline>
+        <FormControl
+          type="text"
+          placeholder="Enter operand 1"
+          value={operand1}
+          onChange={(e) => setOperand1(e.target.value)}
+        />
+        <DropdownButton id="dropdown-basic-button" title={operation}>
+          <Dropdown.Item onClick={() => setOperation('+')}>+</Dropdown.Item>
+          <Dropdown.Item onClick={() => setOperation('-')}>-</Dropdown.Item>
+          <Dropdown.Item onClick={() => setOperation('*')}>*</Dropdown.Item>
+          <Dropdown.Item onClick={() => setOperation('/')}>/</Dropdown.Item>
+        </DropdownButton>
+        <FormControl
+          type="text"
+          placeholder="Enter operand 2"
+          value={operand2}
+          onChange={(e) => setOperand2(e.target.value)}
+        />
+        <Button variant="primary" onClick={calculate}>
+          Calculate
+        </Button>
+      </Form>
+      <h2>Result: {result}</h2>
+    </div>
+  );
+}
+
+export default App;
+
+npm start
